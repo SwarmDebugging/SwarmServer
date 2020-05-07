@@ -5,6 +5,7 @@
 /build/
 /.settings/
 /.classpath
+/.vscode
 
 \.gradle/5\.4\.1/fileHashes/resourceHashesCache\.bin
 
@@ -22,3 +23,5 @@
 .gradle/5.4.1/fileHashes/fileHashes.lock
 .gradle/5.4.1/javaCompile/javaCompile.lock
 .gradle/buildOutputCleanup/buildOutputCleanup.lock
+.gradle/buildOutputCleanup/buildOutputCleanup.lock
+.gradle/buildOutputCleanup/cache.properties

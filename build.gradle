@@ -1,6 +1,6 @@
 buildscript {
 	ext {
-		springBootVersion = '2.1.5.RELEASE'
+		springBootVersion = '2.2.6.RELEASE'
 	}
 	repositories {
 		mavenCentral()
@@ -16,9 +16,8 @@ buildscript {
 
 plugins {
 	id 'java'
-	id 'com.gradle.build-scan' version '2.3'
-	id 'org.springframework.boot' version '2.1.5.RELEASE'
-	id 'io.spring.dependency-management' version '1.0.7.RELEASE'
+	id 'org.springframework.boot' version '2.2.6.RELEASE'
+	id 'io.spring.dependency-management' version '1.0.9.RELEASE'
 }
 
 sourceCompatibility = '12'
@@ -36,16 +35,6 @@ repositories {
 	maven { url "http://repo.spring.io/snapshot" }
 }
 
-buildScan {
-
-    // always accept the terms of service
-    termsOfServiceUrl = 'https://gradle.com/terms-of-service'
-    termsOfServiceAgree = 'yes'
-
-    // always publish a build scan
-    publishAlways()
-}
-
 dependencies {
     compile("org.springframework.boot:spring-boot-starter-web") {
         exclude module: "spring-boot-starter-tomcat"
@@ -61,15 +50,15 @@ dependencies {
     
     compile("io.leangen.graphql:graphql-spqr-spring-boot-starter:0.0.4")
     
-    compile("com.graphql-java-kickstart:graphiql-spring-boot-starter:5.9.0")
+    compile("com.graphql-java-kickstart:graphiql-spring-boot-starter:7.0.1")
 
-    compile("org.apache.commons:commons-dbcp2:2.6.0")
+    compile("org.apache.commons:commons-dbcp2:2.7.0")
     
     testCompile('org.springframework.boot:spring-boot-starter-test')     
     testCompile("junit:junit")
     testCompile("com.jayway.jsonpath:json-path:2.4.0")
 	testCompile('com.h2database:h2')
     
-    runtime('org.postgresql:postgresql:42.2.5')
+    runtime('org.postgresql:postgresql:42.2.12')
     
 }
