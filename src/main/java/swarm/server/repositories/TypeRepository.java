@@ -19,6 +19,9 @@ public interface TypeRepository extends JpaRepository<Type, Long> {
 	@Query("Select t from Type t Where t.session.id = :sessionId")
 	List<Type> findBySessionId(@Param("sessionId") Long sessionId);
 
+	@Query("Select t from Type t Where t.session.id = :sessionId and t.fullName = :fullName and t.artefact.sourceCode = :sourceCode")
+	List<Type> findBySessionIdFullNameAndSourceCode(@Param("sessionId") Long sessionId, @Param("fullName") String fullName, @Param("sourceCode") String sourceCode);
+
 	List<Type> findBySession(@Param("session") Optional<Session> session);
 	
 	@Query("Select t from Type t Where t.session.task = :task order by t.fullName")

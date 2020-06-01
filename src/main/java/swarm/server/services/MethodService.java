@@ -1,5 +1,6 @@
 package swarm.server.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +38,11 @@ public class MethodService {
 
 	@GraphQLMutation(name = "methodCreate")
 	public Method methodCreate(Method method) {
+		List<Method> foundMethod = methodRepository.findByTypeIdSignatureAndName(method.getType().getId(), method.getSignature(), method.getName());
+		if(!foundMethod.isEmpty()) {
+			return foundMethod.get(0);
+		}
+
 		return methodRepository.save(method);
 	}
 

@@ -1,5 +1,6 @@
 package swarm.server.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,6 +60,12 @@ public class TypeService {
 	@GraphQLMutation(name = "typeCreate")
 	public Type typeCreate(TypeWrapper typeWrapper) {
 		Type type = typeWrapper.getType();
+
+		List<Type> foundTypes = typeRepository.findBySessionIdFullNameAndSourceCode(typeWrapper.getType().getSession().getId(), 
+		typeWrapper.getType().getFullName(), typeWrapper.getSource());
+		if(!foundTypes.isEmpty()) {
+			return foundTypes.get(0);
+		}
 				
 		int typeHash = typeWrapper.hashCode();
 		

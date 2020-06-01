@@ -22,6 +22,9 @@ public interface MethodRepository extends JpaRepository<Method, Long> {
 
 	@Query("Select count(m) From Method m Where m.type.session = :session")
 	int countBySession(@Param("session") Optional<Session> session);
+
+	@Query("Select m from Method m where m.type.id = :typeId and m.signature = :signature and m.name = :name")
+	List<Method> findByTypeIdSignatureAndName(@Param("typeId") Long typeId, @Param("signature") String signature, @Param("name") String name);
 	
 	@Query("select m from Method m, Type t, Session s where m.type = t and t.session = s and s = :session " +
 		   "and m not in (select i.invoked from Invocation i group by i.invoked) order by m.id")

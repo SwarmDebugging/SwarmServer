@@ -30,8 +30,8 @@ public class TypeWrapper { //For REST request to create a new type
 	}
 	
 	public int hashCode() {
-    	int hash = 7;
-    	hash = 31 * hash + (type.fullName == null ? 0 : type.fullName.hashCode());
+		int hash = 7;
+    	hash = 31 * hash + (type.getFullName() == null ? 0 : type.getFullName().hashCode());
     	hash = 31 * hash + (source == null ? 0 : source.hashCode());
     	return hash;
     }
