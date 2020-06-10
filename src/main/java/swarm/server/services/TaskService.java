@@ -74,6 +74,11 @@ public class TaskService {
 		}
 		return null;
 	}
+
+	@GraphQLQuery(name = "tasks")
+	public Iterable<Task> TasksByProductId(@GraphQLArgument(name = "productId") Long productId) {
+		return taskRepository.findActiveTasksByProductId(productId);
+	}
 	
 	@GraphQLQuery(name = "tasks")
     public Iterable<Task> allTasks() {

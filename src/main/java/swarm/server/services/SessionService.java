@@ -56,6 +56,7 @@ public class SessionService {
 		return sessionRepository.findByTask(taskId);
 	}
 	
+	@GraphQLMutation(name = "sessionCreate")
 	public Session save(Session session) {
 		return sessionRepository.save(session);
 	}
