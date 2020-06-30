@@ -78,6 +78,14 @@ public class SessionService {
 		return sessionRepository.save(session);
 	}
 
+	@GraphQLMutation(name = "sessionStop")
+	public Session stopSession(@GraphQLArgument(name = "id") Long id) {
+		Session session = sessionRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+		Date date = new Date();
+		session.setFinished(date);
+		return sessionRepository.save(session);
+	}
+
 
 	@GraphQLMutation(name = "sessionStart") //started and finished necessary?
 	public Session sessionStart(Session session) {
