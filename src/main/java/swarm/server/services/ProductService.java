@@ -32,7 +32,8 @@ public class ProductService {
 		this.invocationRepository = invocationRepository;
 		this.typeRepository = typeRepository;
 	}
-	
+
+	@GraphQLQuery(name = "allProducts")
 	public Iterable<Product> allProduct() {
 		return productRepository.findAll();
 	}
