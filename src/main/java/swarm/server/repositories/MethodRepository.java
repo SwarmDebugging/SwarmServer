@@ -10,6 +10,7 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 import swarm.server.domains.Method;
 import swarm.server.domains.Session;
+import swarm.server.domains.Task;
 import swarm.server.domains.Type;
 
 @RepositoryRestResource(collectionResourceRel = "methods", path = "methods")
@@ -33,4 +34,17 @@ public interface MethodRepository extends JpaRepository<Method, Long> {
 	@Query("select m from Method m, Type t, Session s where m.type = t and t.session = s and s = :session " +
 		   "and m not in (select i.invoking from Invocation i group by i.invoking) order by m.id")
 	List<Method> getEndingMethods(@Param("session") Optional<Session> session);
+
+	@Query("select m,count(m) as co\n" +
+			"from Method m,Session s,Event e,Task ta,Type ty\n" +
+			"where ta.id=:taskId\n" +
+			"and m.type.id=ty.id\n" +
+			"and s.task.id=ta.id\n" +
+			"and e.session.id=s.id\n" +
+			"and e.method.id = m.id\n" +
+			"and e.kind<>'Breakpoint Added'\n" +
+			"and e.kind<>'Breakpoint Removed'\n" +
+			"group by m\n" +
+			"order by co Desc")
+	List<Method> getMethodsUsedInPreviousSessions(@Param("taskId")Long taskId);
 }

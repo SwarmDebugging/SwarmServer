@@ -14,9 +14,11 @@ import io.leangen.graphql.annotations.GraphQLMutation;
 import io.leangen.graphql.annotations.GraphQLQuery;
 import io.leangen.graphql.spqr.spring.annotations.GraphQLApi;
 import swarm.server.domains.Breakpoint;
+import swarm.server.domains.Method;
 import swarm.server.domains.Task;
 import swarm.server.domains.Type;
 import swarm.server.repositories.BreakpointRepository;
+import swarm.server.repositories.MethodRepository;
 import swarm.server.repositories.TaskRepository;
 import swarm.server.repositories.TypeRepository;
 
@@ -30,13 +32,15 @@ public class TaskService {
 	private final TaskRepository taskRepository;
 	private final TypeRepository typeRepository;
 	private final BreakpointRepository breakpointRepository;
+	private final MethodRepository methodRepository;
 	
 	@Autowired
 	public TaskService(TaskRepository taskRepository, TypeRepository typeRepository,
-			BreakpointRepository breakpointRepository) {
+			BreakpointRepository breakpointRepository, MethodRepository methodRepository) {
 		this.taskRepository = taskRepository;
 		this.typeRepository = typeRepository;
 		this.breakpointRepository = breakpointRepository;
+		this.methodRepository = methodRepository;
 	}
 
 	@GraphQLQuery(name = "tasks") 
@@ -78,6 +82,13 @@ public class TaskService {
 	@GraphQLQuery(name = "tasks")
 	public Iterable<Task> TasksByProductId(@GraphQLArgument(name = "productId") Long productId) {
 		return taskRepository.findActiveTasksByProductId(productId);
+	}
+
+	@GraphQLQuery(name = "breakpointRecommendation")
+	public Iterable<Method> getBreakpointRecommendation(@GraphQLArgument(name = "taskId") Long taskId) {
+		List<Method> methodsUsedInPreviousSessions = methodRepository.getMethodsUsedInPreviousSessions(taskId);
+		return methodsUsedInPreviousSessions;
+
 	}
 	
 	@GraphQLQuery(name = "tasks")

@@ -98,6 +98,11 @@ public class SessionService {
 	public Iterable<Session> sessionsByTaskIdAndDeveloperId(@GraphQLArgument(name = "taskId") Long taskId, @GraphQLArgument(name = "developerId") Long developerId){
     	return sessionRepository.findByTaskAndDeveloper(taskId, developerId);
 	}
+
+	@GraphQLQuery(name = "sessions")
+	public Iterable<Session> sessionsByDeveloperId(@GraphQLArgument(name = "developerId") Long developerId) {
+		return sessionRepository.findByDeveloperId(developerId);
+	}
 	
 	@GraphQLQuery(name = "sessionsVscode")
 	public Iterable<Session> sessionsByVscodeSession(@GraphQLArgument(name = "vscodeSession") String vscodeSession){
