@@ -47,7 +47,8 @@ public class SessionService {
 	public Optional<Session> sessionById(Long id) {
 		return sessionRepository.findById(id);
 	}
-	
+
+	@GraphQLQuery(name = "sessions")
 	public Iterable<Session> allSessions() {
 		return sessionRepository.findAll();
 	}

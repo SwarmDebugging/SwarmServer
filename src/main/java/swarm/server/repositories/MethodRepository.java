@@ -35,16 +35,12 @@ public interface MethodRepository extends JpaRepository<Method, Long> {
 		   "and m not in (select i.invoking from Invocation i group by i.invoking) order by m.id")
 	List<Method> getEndingMethods(@Param("session") Optional<Session> session);
 
-	@Query("select m,count(m) as co\n" +
+	@Query("select m\n" +
 			"from Method m,Session s,Event e,Task ta,Type ty\n" +
 			"where ta.id=:taskId\n" +
 			"and m.type.id=ty.id\n" +
 			"and s.task.id=ta.id\n" +
 			"and e.session.id=s.id\n" +
-			"and e.method.id = m.id\n" +
-			"and e.kind<>'Breakpoint Added'\n" +
-			"and e.kind<>'Breakpoint Removed'\n" +
-			"group by m\n" +
-			"order by co Desc")
+			"and e.method.id = m.id\n")
 	List<Method> getMethodsUsedInPreviousSessions(@Param("taskId")Long taskId);
 }

@@ -27,6 +27,11 @@ public class BreakpointService {
 		this.breakpointRepository = breakpointRepo;
 		this.productRepository = productRepo;
 	}
+
+	@GraphQLQuery(name = "breakpoints")
+	public List<Breakpoint> breakpointsBySessionId(@GraphQLArgument(name = "sessionId") Long sessionId){
+		return breakpointRepository.findBySessionIdOrderByTimestamp(sessionId);
+	}
 	
 	public Optional<Breakpoint> findById(Long id) {
 		return breakpointRepository.findById(id);

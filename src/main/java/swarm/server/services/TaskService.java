@@ -84,8 +84,8 @@ public class TaskService {
 		return taskRepository.findActiveTasksByProductId(productId);
 	}
 
-	@GraphQLQuery(name = "breakpointRecommendation")
-	public Iterable<Method> getBreakpointRecommendation(@GraphQLArgument(name = "taskId") Long taskId) {
+	@GraphQLQuery(name = "methodsUsedInTask")
+	public Iterable<Method> getMethodsUsedTask(@GraphQLArgument(name = "taskId") Long taskId) {
 		List<Method> methodsUsedInPreviousSessions = methodRepository.getMethodsUsedInPreviousSessions(taskId);
 		return methodsUsedInPreviousSessions;
 

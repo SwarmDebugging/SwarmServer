@@ -30,6 +30,13 @@ public interface BreakpointRepository extends JpaRepository<Breakpoint, Long> {
 	
 	int countByType(Type type);
 
+	@Query("select b from Breakpoint b,Type t,Session s\n" +
+			"where s.id = :sessionId \n" +
+			"and b.type.id = t.id \n" +
+			"and t.session.id = s.id \n" +
+			"order by b.timestamp")
+	List<Breakpoint> findBySessionIdOrderByTimestamp(@Param("sessionId")Long sessionId);
+
 	@Query("Select b from Breakpoint b Where b.type.session.task.id = :taskId order by b.lineNumber")
 	List<Breakpoint> findByTaskId(@Param("taskId") Long taskId);
 	
