@@ -24,12 +24,12 @@ public interface InvocationRepository extends JpaRepository<Invocation, Long> {
 	int countInvocations(@Param("session") Optional<Session> session, @Param("method") Method method);
 
 	@Query("from Invocation as i where i.session = :session order by i.id")
-	List<Invocation> findBySession(@Param("session") Optional<Session> session);
+	List<Invocation> findByTask(@Param("session") Optional<Session> session);
 
 	int countBySession(Optional<Session> session);
 
-	@Query("from Invocation as i where i.session.task = :task order by i.id")
-	List<Invocation> findBySession(@Param("task") Task task);
+	@Query("from Invocation as i where i.session.task.id = :taskId order by i.id")
+	List<Invocation> findByTask(@Param("taskId") Long taskId);
 	
 	@Query("from Invocation as i Where i.session.task.product = :product")
 	List<Invocation> findByProduct(@Param("product") Optional<Product> product);
