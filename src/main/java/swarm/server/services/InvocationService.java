@@ -96,7 +96,7 @@ public class InvocationService {
 						html.append("{data:{id:'").append(invokedType.getFullName()).append("'}},\n");
 						html.append("{data:{id:'").append(invokingType.getFullName()).append("'}},\n");
 						html.append("{data:{id:'").append(invokedType.getFullName()).append(",").append(invokingType.getFullName())
-								.append("'," + "source: '").append(invokedType.getFullName()).append("',target: '").append(invokingType.getFullName()).append("'}},\n\n");
+								.append("'," + "target: '").append(invokedType.getFullName()).append("',source: '").append(invokingType.getFullName()).append("'}},\n\n");
 					}
 				}
 
@@ -113,14 +113,14 @@ public class InvocationService {
 						"          {\n" +
 						"          \tselector: 'edge',\n" +
 						"            style: {\n" +
-						"            \t'target-arrow-color': '#ccc',\n" +
+						"            \t'target-arrow-color': 'red',\n" +
 						"              'target-arrow-shape': 'triangle',\n" +
 						"              'curve-style': 'bezier'\n" +
 						"            }\n" +
 						"          }\n" +
 						"        ],\n" +
 						"        layout: {\n" +
-						"        \tname: 'circle'\n" +
+						"        \tname: 'random'\n" +
 						"        }\n" +
 						"    });\n" +
 						"  </script>\n" +
