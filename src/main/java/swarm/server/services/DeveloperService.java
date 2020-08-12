@@ -38,14 +38,10 @@ public class DeveloperService {
 
 	@GraphQLQuery(name = "login")
 	public Iterable<Task> login(@GraphQLArgument(name = "username") String username) {
-		/*Developer developer = developerRepository.findByNameAllIgnoringCase(username);
-		developer.setLogged(true);
-		return developerRepository.save(developer);*/
-
 		Developer developer = developerRepository.findByUsernameAllIgnoringCase(username);
 		developer.setLogged(true);
 		developerRepository.save(developer);
-		return taskRepository.findByDeveloperId(developer.getId()); //finds tasks
+		return taskRepository.findByDeveloperId(developer.getId());
 	}
 	
 	@GraphQLQuery(name = "developers")
@@ -59,7 +55,6 @@ public class DeveloperService {
 	
 	@GraphQLMutation(name = "developerCreate")
 	public Developer createDeveloper(Developer developer) {
-		//developer.setLogged(true); //does not work
 		developer.setColor("color");
 		return developerRepository.save(developer);
 	}

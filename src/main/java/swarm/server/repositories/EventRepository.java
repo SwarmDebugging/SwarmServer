@@ -7,7 +7,12 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 import swarm.server.domains.Event;
 
+import java.util.List;
+
 @RepositoryRestResource(collectionResourceRel = "events", path = "events")
 public interface EventRepository extends JpaRepository<Event, Long> {
+
+    @Query("from Event as e where e.session.task.id = :taskId")
+    List<Event> findByTask(@Param("taskId") Long taskId);
 
 }

@@ -20,12 +20,10 @@ import swarm.server.repositories.ProductRepository;
 public class BreakpointService {
 	
 	private final BreakpointRepository breakpointRepository;
-	private final ProductRepository productRepository;
-	
+
 	@Autowired
-	public BreakpointService(BreakpointRepository breakpointRepo, ProductRepository productRepo) {
+	public BreakpointService(BreakpointRepository breakpointRepo) {
 		this.breakpointRepository = breakpointRepo;
-		this.productRepository = productRepo;
 	}
 
 	@GraphQLQuery(name = "breakpoints")
@@ -46,29 +44,4 @@ public class BreakpointService {
     public Iterable<Breakpoint> breakpointsByTaskId(@GraphQLArgument(name = "taskId") Long taskId){
 		return breakpointRepository.findByTaskId(taskId);
     }
-    
-	@GraphQLQuery(name = "getTable")
-    public String getTable(@GraphQLArgument(name = "productId") Long productId) {
-		Optional<Product> product = productRepository.findById(productId);
-		List<Breakpoint> breakpoints = breakpointRepository.findByProduct(product);
-
-		StringBuffer buffer = new StringBuffer("{");
-		long total = breakpoints.size();
-
-		buffer.append("\"draw\": 1,\n");
-		buffer.append("\"recordsTotal\": " + total + ",\n");
-		buffer.append("\"recordsFiltered\": " + total + ",\n");
-		buffer.append("\"data\": [\n");
-
-		for (Breakpoint breakpoint : breakpoints) {
-			buffer.append("[\"" + breakpoint.getType().getSession().getTask().getTitle().substring(0, 11) + "\",\n");
-			buffer.append("\"" + breakpoint.getType().getSession().getDeveloper().getUsername() + "\",\n");
-			buffer.append("\"" + breakpoint.getType().getFullName() + "\",\n");
-			buffer.append("\"" + breakpoint.getLineNumber() + "\"],\n");
-		}
-
-		String output = buffer.toString().substring(0, buffer.toString().length() - 2);
-		output = output + "\n]}";
-        return output;
-	}
 }
