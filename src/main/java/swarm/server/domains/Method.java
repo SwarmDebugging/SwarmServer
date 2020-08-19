@@ -10,7 +10,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
-import io.leangen.graphql.annotations.GraphQLIgnore;
 
 
 @Entity

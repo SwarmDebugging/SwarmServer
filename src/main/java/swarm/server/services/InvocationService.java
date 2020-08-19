@@ -7,14 +7,8 @@ import io.leangen.graphql.annotations.GraphQLArgument;
 import io.leangen.graphql.annotations.GraphQLMutation;
 import io.leangen.graphql.annotations.GraphQLQuery;
 import io.leangen.graphql.spqr.spring.annotations.GraphQLApi;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 import swarm.server.domains.Invocation;
-import swarm.server.domains.Type;
 import swarm.server.repositories.InvocationRepository;
-
-import java.util.*;
 
 @Service
 @GraphQLApi
@@ -47,6 +41,10 @@ public class InvocationService {
 	@GraphQLQuery(name = "invocations")
 	public Iterable<Invocation> getInvocationsByTask(@GraphQLArgument(name = "taskId") Long taskId) {
 		return invocationRepository.findByTask(taskId);
+	}
+
+	public Iterable<Invocation> getInvocationsByProduct(Long productId) {
+		return invocationRepository.findByProductId(productId);
 	}
 
 	@GraphQLQuery(name = "invocations")

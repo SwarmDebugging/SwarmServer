@@ -15,4 +15,7 @@ public interface EventRepository extends JpaRepository<Event, Long> {
     @Query("from Event as e where e.session.task.id = :taskId")
     List<Event> findByTask(@Param("taskId") Long taskId);
 
+    @Query("from Event as e where e.session.task.product.id = :productId")
+    Iterable<Event> findByProductId(@Param("productId") Long productId);
+
 }

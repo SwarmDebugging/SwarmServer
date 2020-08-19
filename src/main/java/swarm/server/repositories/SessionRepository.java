@@ -7,8 +7,6 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 import swarm.server.domains.Session;
 
-import java.util.List;
-
 @RepositoryRestResource(collectionResourceRel = "sessions", path = "sessions")
 public interface SessionRepository extends JpaRepository<Session, Long> {
 

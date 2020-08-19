@@ -1,6 +1,5 @@
 package swarm.server.repositories;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,7 +12,6 @@ import swarm.server.domains.Invocation;
 import swarm.server.domains.Method;
 import swarm.server.domains.Product;
 import swarm.server.domains.Session;
-import swarm.server.domains.Task;
 
 @RepositoryRestResource(collectionResourceRel = "invocations", path = "invocations")
 public interface InvocationRepository extends JpaRepository<Invocation, Long> {
@@ -34,4 +32,7 @@ public interface InvocationRepository extends JpaRepository<Invocation, Long> {
 	
 	@Query("from Invocation as i Where i.session.task.product = :product")
 	List<Invocation> findByProduct(@Param("product") Optional<Product> product);
+
+	@Query("from Invocation as i Where i.session.task.product.id = :productId")
+	List<Invocation> findByProductId(@Param("productId") Long productId);
 }
